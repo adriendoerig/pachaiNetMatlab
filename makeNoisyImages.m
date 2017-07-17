@@ -12,7 +12,7 @@ for img = 1:length(names)
     sz = size(currImg);
     cd ../trainVal/easy
     for i = 1:nCopies
-        noisyImg = double(currImg) + 20*randn(sz(1), sz(2));
+        noisyImg = double(currImg) + 10*randn(sz(1), sz(2));
         noisyImg(noisyImg<0) = 0;
         noisyImg(noisyImg>255) = 255;
         noisyImg = uint8(noisyImg);

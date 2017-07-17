@@ -38,7 +38,7 @@ size(img)
 % training set has trainingNumFiles images and the test set has the remaining images
 % from each label.
 trainingNumFiles = 8000;
-rng(1) % For reproducibility
+% rng(1) % For reproducibility
 % |splitEachLabel| splits the image files in |digitData| into two new datastores,
 % |trainDigitData| and |testDigitData|.  
 [trainDigitData,testDigitData] = splitEachLabel(dataSet, ...
@@ -47,14 +47,16 @@ rng(1) % For reproducibility
 %% Define the Network Layers
 % Define the convolutional neural network architecture. 
 layers = [imageInputLayer([60 100 1])
-          convolution2dLayer(5,20)
+          convolution2dLayer(3,20)
           reluLayer
           maxPooling2dLayer(2,'Stride',2)
-          convolution2dLayer(5,20)
-          reluLayer
-          convolution2dLayer(5,20)
+          convolution2dLayer(3,20)
           reluLayer
           maxPooling2dLayer(2,'Stride',2)
+          convolution2dLayer(3,20)
+          reluLayer
+          maxPooling2dLayer(2,'Stride',2)
+          fullyConnectedLayer(20)
           fullyConnectedLayer(2)
           softmaxLayer
           classificationLayer()] 
@@ -129,7 +131,7 @@ layers = [imageInputLayer([60 100 1])
 % descent with momentum. Set the maximum number of epochs at 15 (an epoch
 % is a full training cycle on the whole training data), and start the
 % training with an initial learning rate of 0.0001.
-options = trainingOptions('sgdm','MaxEpochs',15, ...
+options = trainingOptions('sgdm','MaxEpochs',150, ...
 	'InitialLearnRate',0.0001);  
 
 %% Train the Network Using Training Data
